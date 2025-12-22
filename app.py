@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, after_this_request
 import yt_dlp, os, time, threading
 
 app = Flask(__name__, static_folder='static', template_folder="temp")
@@ -78,9 +78,10 @@ def get_file(filename):
     if not os.path.exists(file_path):
         return jsonify({'message': 'Файл не найден', 'what': 'error'}), 404
     
-    # Удаление с задержкой
+    # Удаление файла с компьтера
+    @after_this_request
     def delayed_remove(path):
-        time.sleep(360)
+        time.sleep(360) # для безопастности
         try:
             if os.path.exists(path):
                 os.remove(path)
