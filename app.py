@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, after_this_request
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 import yt_dlp, os, time, threading
 
 app = Flask(__name__, static_folder='static', template_folder="temp")
@@ -68,7 +68,7 @@ def download():
 
             basename = new_filename
 
-            return jsonify({'message': 'Ваш файл готов!', 'what': 'success', 'filename': basename}), 200
+            return jsonify({'message': f'Ваш файл {sanitized_title} - готов!', 'what': 'success', 'filename': basename}), 200
     except Exception as ex:
         return jsonify({'message': f'Ошибка! {ex}', 'what': 'error'}), 400
 
@@ -79,9 +79,8 @@ def get_file(filename):
         return jsonify({'message': 'Файл не найден', 'what': 'error'}), 404
     
     # Удаление файла с компьтера
-    @after_this_request
     def delayed_remove(path):
-        time.sleep(360) # для безопастности
+        time.sleep(60) # 60 секунд ожидания после чего файл удаляется
         try:
             if os.path.exists(path):
                 os.remove(path)
