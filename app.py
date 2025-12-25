@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
-import yt_dlp, os, time, threading
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, after_this_request
+import yt_dlp, os, time, io
 
 app = Flask(__name__, static_folder='static', template_folder="temp")
 
@@ -22,7 +22,7 @@ def download():
     local_time_struct = time.localtime(timestamp)
     formatted_time = time.strftime("%Y-%m-%d", local_time_struct)
 
-    output_filename = f"haomedia_{formatted_time}_{received_quality}"
+    output_filename = f"ytmedia_{formatted_time}_{received_quality}"
 
     YDL_OPTIONS = {
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
@@ -56,7 +56,7 @@ def download():
             quality_label = received_quality + 'kbps' if received_format == 'mp3' else {'high':'1080p', 'medium':'720p', 'low':'480p'}.get(received_quality, 'best')
 
             final_ext = 'mp3' if received_format == 'mp3' else 'mp4'
-            new_filename = f"HaoMedia_{sanitized_title}_{formatted_time}_{quality_label}.{final_ext}"
+            new_filename = f"YouTubeDownloader_{sanitized_title}_{formatted_time}_{quality_label}.{final_ext}"
 
             if received_format == 'mp3':
                 final_path = f"{output_filename}.mp3"
@@ -75,22 +75,22 @@ def download():
 @app.route('/get_file/<filename>')
 def get_file(filename):
     file_path = os.path.join(os.getcwd(), filename)
-    if not os.path.exists(file_path):
-        return jsonify({'message': 'Файл не найден', 'what': 'error'}), 404
     
-    # Удаление файла с компьтера
-    def delayed_remove(path):
-        time.sleep(60) # 60 секунд ожидания после чего файл удаляется
-        try:
-            if os.path.exists(path):
-                os.remove(path)
-                print("\033[1;32m" + "# ФАЙЛ УДАЛЕН!" + "\033[0m")
-        except Exception as e:
-            print(f"Ошибка удаления: {e}")
+    return_data = io.BytesIO()
+    try:
+        with open(file_path, 'rb') as f:
+            return_data.write(f.read())
+        return_data.seek(0)
+
+        os.remove(file_path)
+        print("\033[1;32m" + "ФАЙЛ УДАЛЕН!" + "\033[0m")
+    except FileNotFoundError as e:
+        return f"Файл не найден: {e}"
+    except Exception as e:
+        app.logger.error(f"Ошибка чтения или удаления файла: {e}")
+        return "Ошибка загрузки.", 500
     
-    threading.Thread(target=delayed_remove, args=(file_path,), daemon=True).start()
-    
-    return send_file(file_path, as_attachment=True)
+    return send_file(return_data, download_name=filename, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=7070)
