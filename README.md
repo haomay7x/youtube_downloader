@@ -2,13 +2,26 @@
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
 <h3 align="center">Computer science student from Belarus 🇧🇾</h3>
 
-<p>Here is my full website code that allows you to download videos/audios from YouTube.</p>
+<p align="center">Here is my full website code that allows you to download videos/audios from YouTube.</p>
 
-<h2>What is needed for protection</h2>
-| Name  | Version | Description |
-| ------------- | ------------- | ------------- |
-| FFmpeg  | 2025-12-18 and higher  | For conversion  |
-| Python  | 3.12+  | Server logic and working with ffmpeg  | 
+<h2>What is needed for functioning?</h2>
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Version</td>
+    <td>Description</td>
+  </tr>
+  <tr>
+    <td>FFmpeg</td>
+    <td>2025-12-18 and higher</td>
+    <td>For conversion</td>
+  </tr>
+    <tr>
+    <td>Python</td>
+    <td>3.12+</td>
+    <td>Server logic and working with ffmpeg</td>
+  </tr>
+</table>
 
 Required libraries for Python:
 1. flask 
