@@ -23,8 +23,10 @@
   </tr>
 </table>
 
-Required libraries for Python:
-1. flask 
-2. yt-dlp
+<h2>Required libraries for Python</h2>
+<ul>
+  <li>flask </li>
+  <li>yt-dlp</li>
+</ul>
 
-<p>ALSO in my YDL_OPTIONS in the option 'ffmpeg_location' my path 'C:/ffmpeg/bin' is specified - when copying/using, do not forget to change it to your path.</p>
+<h3>ALSO in my YDL_OPTIONS in the option 'ffmpeg_location' my path 'C:/ffmpeg/bin' is specified - when copying/using, do not forget to change it to your path.</h3>
