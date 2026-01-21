@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, after_this_request
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify
 import yt_dlp, os, time, io
 
 app = Flask(__name__, static_folder='static', template_folder="temp")

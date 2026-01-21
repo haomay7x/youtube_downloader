@@ -1,11 +1,17 @@
-Сайт который позволяет скачивать видео\адуио с Youtube
+<h1 align="center">Hi there, I'm <a href="https://github.com/haomay7x" target="_blank">Alexey</a> 
+<img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
+<h3 align="center">Computer science student from Belarus 🇧🇾</h3>
 
-Что нужно для функционирования:
-1. FFmpeg - для конвертации
-2. Python 3.12+ - серверная логика и работа с ffmpeg
+<p>Here is my full website code that allows you to download videos/audios from YouTube.</p>
 
-Неоьбходимые библиотеки для Python:
+<h2>What is needed for protection</h2>
+| Name  | Version | Description |
+| ------------- | ------------- | ------------- |
+| FFmpeg  | 2025-12-18 and higher  | For conversion  |
+| Python  | 3.12+  | Server logic and working with ffmpeg  | 
+
+Required libraries for Python:
 1. flask 
 2. yt-dlp
 
-ТАК ЖЕ у меня в YDL_OPTIONS в опции 'ffmpeg_location' указан мой путь 'C:/ffmpeg/bin' - при копированиии\использовании не забудьте изменить на свой путь.
+<p>ALSO in my YDL_OPTIONS in the option 'ffmpeg_location' my path 'C:/ffmpeg/bin' is specified - when copying/using, do not forget to change it to your path.</p>
